@@ -1,6 +1,6 @@
 <template>
   <svg :view-box.camel="viewBox" preserveAspectRatio="xMidYMid meet">
-    <g class="d3__stage" :style="stageStyle">
+    <g :style="stageStyle">
       <axis
         v-for="axis in axes"
         :key="axis"
@@ -11,7 +11,7 @@
       </axis>
       <g>
         <snake-line
-          :chart-data="chartData" 
+          :chart-data="chartData"
           :layout="layout"
           :scale="scale">
         </snake-line>
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import * as d3 from 'd3';
-import Axis from './Axis';
-import SnakeLine from './SnakeLine';
+import { scaleLinear, scaleOrdinal, min, max } from "d3";
+import Axis from "./Axis";
+import SnakeLine from "./SnakeLine";
 
 const props = {
   layout: {
@@ -60,28 +60,32 @@ export default {
   },
   computed: {
     viewBox() {
-      const outerWidth = this.layout.width + this.layout.marginLeft + this.layout.marginRight;
-      const outerHeight = this.layout.height + this.layout.marginTop + this.layout.marginBottom;
+      const outerWidth =
+        this.layout.width + this.layout.marginLeft + this.layout.marginRight;
+      const outerHeight =
+        this.layout.height + this.layout.marginTop + this.layout.marginBottom;
 
       return `0 0 ${outerWidth} ${outerHeight}`;
     },
     stageStyle() {
       return {
-        transform: `translate(${this.layout.marginLeft}px, ${this.layout.marginTop}px)`
-      }
+        transform: `translate(${this.layout.marginLeft}px, ${
+          this.layout.marginTop
+        }px)`
+      };
     }
   },
   methods: {
     getScaleX() {
-      return d3.scaleLinear()
+      return scaleLinear()
         .domain([
-          d3.min(this.chartData, d => d.value),
-          d3.max(this.chartData, d => d.value)
+          min(this.chartData, d => d.value),
+          max(this.chartData, d => d.value)
         ])
         .range([0, this.layout.width]);
     },
     getScaleY() {
-      return d3.scaleOrdinal()
+      return scaleOrdinal()
         .domain(this.chartData.map(d => d.name))
         .range(this.getUniformRangeForY());
     },

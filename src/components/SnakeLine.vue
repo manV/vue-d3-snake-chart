@@ -2,7 +2,7 @@
   <path class="line" ref="line" :style="style"></path>
 </template>
 <script>
-import * as d3 from 'd3';
+import { line, select } from "d3";
 
 const props = {
   layout: {
@@ -21,24 +21,20 @@ export default {
   props,
   mounted() {
     this.drawLine();
-    debugger;
   },
   computed: {
     style() {
-      return {}
+      return {};
     }
   },
   methods: {
     drawLine() {
-      const line = d3.line()
+      const l = line()
         .x(d => this.scale.x(d.value))
         .y(d => this.scale.y(d.name));
 
-      const $line = d3.select(this.$refs.line);
-      debugger;
-      $line
-        .datum(this.chartData)
-        .attr('d', line);
+      const $line = select(this.$refs.line);
+      $line.datum(this.chartData).attr("d", l);
     }
   },
   watch: {
