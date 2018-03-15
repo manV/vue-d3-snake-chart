@@ -41,7 +41,10 @@ export default {
       const axisOffset = {
         top: { x: 0, y: 0 },
         right: { x: this.layout.width, y: 0 },
-        bottom: { x: 0, y: this.layout.height },
+        bottom: {
+          x: 0,
+          y: this.scale.y.range()[this.scale.y.range().length - 1]
+        },
         left: { x: 0, y: 0 }
       };
       return `translate(${axisOffset[this.axis].x}px, ${
