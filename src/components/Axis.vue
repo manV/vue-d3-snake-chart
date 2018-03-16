@@ -2,7 +2,8 @@
   <g :class="[classList]" ref="axis" :style="style"></g>
 </template>
 <script>
-import { select, axisTop, axisBottom, axisRight, axisLeft } from "d3";
+import { axisTop, axisBottom, axisRight, axisLeft } from "d3-axis";
+import { select } from "d3-selection";
 
 const props = {
   layout: {

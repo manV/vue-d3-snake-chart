@@ -2,7 +2,8 @@
   <path class="line" ref="line" :style="style"></path>
 </template>
 <script>
-import { line, select } from "d3";
+import { select } from "d3-selection";
+import { line } from "d3-shape";
 
 const props = {
   layout: {

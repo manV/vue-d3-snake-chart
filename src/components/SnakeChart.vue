@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { scaleLinear, scaleOrdinal, min, max } from "d3";
+import { min, max } from "d3-array";
+import { scaleLinear, scaleOrdinal } from "d3-scale";
 import Axis from "./Axis";
 import SnakeLine from "./SnakeLine";
 
